@@ -40,7 +40,12 @@ npm run dev                # http://localhost:3100
 
 ```bash
 # Una vez (instalar Flutter): https://docs.flutter.dev/get-started/install/macos
+# Opción A — Homebrew:
 brew install --cask flutter
+# Opción B — ZIP oficial en una carpeta fija (ej. ~/Alvarodev/flutter):
+#   export PATH="$HOME/Alvarodev/flutter/bin:$PATH"
+#   (añádelo a ~/.zshrc para que persista). El repo incluye .vscode/settings.json
+#   con dart.flutterSdkPath para Cursor/VS Code apuntando a ese SDK.
 flutter doctor
 
 cd app
