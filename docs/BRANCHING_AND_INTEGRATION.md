@@ -8,7 +8,7 @@ Referencia para no perder la **interfaz ya validada** en `DacToDock` (Android na
 | Rama | Propósito |
 |------|-----------|
 | `main` | Siempre desplegable: build OK, sin features a medias. Solo merge vía PR. |
-| `develop` *(opcional)* | Integración continua de features; `main` recibe releases estables. |
+| `develop` | Tronco de integración UX + features (AuraLib día a día). |
 | `feature/<area>-<tema-corto>` | Una capacidad acotada (ej. `feature/auth-firebase-login`). |
 | `fix/<tema>` | Correcciones sin nueva funcionalidad. |
 
@@ -64,12 +64,25 @@ si el contrato API está listo.
 No copiar código legacy a ciegas: **reimplementar en Flutter** usando la documentación viva
 en [`docs/PRODUCT_GUIDE.md`](PRODUCT_GUIDE.md) y [`docs/BACKEND_API.md`](BACKEND_API.md).
 
-## 5. Próximos pasos inmediatos (esta semana)
+## 5. Shell principal en Flutter (paridad DacToDock)
 
-1. Crear `develop` desde `main` (si quieren tronco de integración) o acordar PR directo a `main`.
+Rutas con barra inferior en móvil (`<600dp`) y **Navigation Rail** en tablet:
+
+| Ruta | Rol legacy |
+|------|------------|
+| `/monitor` | Monitor — resumen / estado |
+| `/inspector` | Inspector — exploración / discografía |
+| `/biblioteca` | Biblioteca |
+| `/ajustes` | Ajustes |
+
+El reproductor a pantalla completa vive en `/player` (fuera del shell).
+
+## 6. Próximos pasos inmediatos (esta semana)
+
+1. La rama **`develop`** es el tronco de trabajo UX + features; `main` queda para releases estables.
 2. Añadir **capturas legacy** + checklist mínimo al primer PR de auth o biblioteca.
 3. Abrir primera rama `feature/auth-firebase-bootstrap` (o nombre acordado): `flutterfire configure`,
-   pantallas placeholder conectadas al tema actual, sin cambiar paleta.
+   pantallas conectadas al shell y tema, sin saltarse el checklist de paridad.
 4. En paralelo, listar **pantallas DacToDock/DacToDockWeb** vs rutas `app_router.dart` actuales
    para ver huecos.
 

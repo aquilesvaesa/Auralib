@@ -47,7 +47,7 @@ class LoginPage extends ConsumerWidget {
                   ),
                   const SizedBox(height: 24),
                   FilledButton(
-                    onPressed: () => context.go('/library'),
+                    onPressed: () => context.go('/biblioteca'),
                     child: const Text('Entrar'),
                   ),
                   TextButton(

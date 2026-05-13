@@ -41,7 +41,7 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('Acerca de AuraLib'),
-            subtitle: Text('v${0.1} · API ${AppConfig.apiBaseUrl}'),
+            subtitle: Text('v0.1.0 · API ${AppConfig.apiBaseUrl}'),
             onTap: () {},
           ),
         ],
