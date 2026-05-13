@@ -1,0 +1,76 @@
+# =====================================================
+#  AuraLib monorepo - .gitignore raíz
+# =====================================================
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Env / secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.jks
+*.keystore
+google-services.json
+GoogleService-Info.plist
+firebase-service-account*.json
+
+# --- Node (api/) ---
+node_modules/
+dist/
+.tsbuildinfo
+.npm/
+
+# --- Flutter (app/) ---
+# Generado por `flutter create`
+**/.dart_tool/
+**/.packages
+**/.pub-cache/
+**/.pub/
+**/build/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/pubspec.lock
+**/.metadata
+
+# Generado por code-gen (build_runner / freezed / json_serializable / riverpod_generator)
+**/*.freezed.dart
+**/*.g.dart
+# (Se excluyen del control de versiones; se regeneran con `dart run build_runner build`)
+
+# Android
+**/android/.gradle/
+**/android/local.properties
+**/android/captures/
+**/android/key.properties
+**/android/app/release/
+**/android/app/debug/
+**/android/app/profile/
+
+# iOS / macOS (no usados en v1, pero por si acaso)
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/.last_build_id
+
+# Firebase CLI cache local
+.firebase/
+firebase-debug.log
+
+# Datos efímeros del backend
+api/.data/

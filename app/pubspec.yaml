@@ -1,0 +1,82 @@
+name: auralib
+description: AuraLib - Tu biblioteca musical, sonando donde quieras.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ──────── Estado / DI ────────
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # ──────── Navegación ────────
+  go_router: ^14.2.0
+
+  # ──────── HTTP ────────
+  dio: ^5.5.0+1
+
+  # ──────── Firebase ────────
+  firebase_core: ^3.3.0
+  firebase_auth: ^5.1.4
+
+  # ──────── Audio local + MediaSession ────────
+  just_audio: ^0.9.40
+  just_audio_background: ^0.0.1-beta.13
+  audio_session: ^0.1.21
+
+  # ──────── UI / utilidades ────────
+  cached_network_image: ^3.3.1
+  shared_preferences: ^2.2.3
+  intl: ^0.19.0
+  flutter_native_splash: ^2.4.1
+  flutter_launcher_icons: ^0.13.1
+
+  # ──────── Logs / errores ────────
+  logger: ^2.4.0
+
+  # ──────── Modelos / serialización ────────
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # ──────── UPnP/DLNA (cliente DAC en LAN) ────────
+  # NOTA: librería base; para SSDP robusto en Android se complementa con MethodChannel nativo.
+  upnp2: ^1.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  build_runner: ^2.4.11
+  riverpod_generator: ^2.4.3
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  custom_lint: ^0.6.4
+  riverpod_lint: ^2.3.13
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+
+flutter_native_splash:
+  color: "#0F1115"
+  color_dark: "#0F1115"
+  android_12:
+    color: "#0F1115"
+    color_dark: "#0F1115"
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: false
+  image_path: "assets/icons/app_icon.png"
+  adaptive_icon_background: "#0F1115"
+  adaptive_icon_foreground: "assets/icons/app_icon_foreground.png"
+  min_sdk_android: 26
