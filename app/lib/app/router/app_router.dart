@@ -1,20 +1,72 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/config/app_config.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/discover/presentation/pages/descubre_page.dart';
 import '../../features/library/presentation/pages/library_page.dart';
 import '../../features/player/presentation/pages/player_page.dart';
 import '../../features/settings/presentation/settings_page.dart';
 import '../shell/app_shell.dart';
+import 'go_router_refresh.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
+String? _authRedirect(GoRouterState state) {
+  final loc = state.matchedLocation;
+  try {
+    if (AppConfig.skipFirebase) {
+      final hasDev = AppConfig.devBearerPayload != null;
+      if (!hasDev && loc != '/login') {
+        return '/login';
+      }
+      if (hasDev && loc == '/login') {
+        return '/biblioteca';
+      }
+      return null;
+    }
+    final user = FirebaseAuth.instance.currentUser;
+    final isLogin = loc == '/login';
+    if (user == null && !isLogin) {
+      return '/login';
+    }
+    if (user != null && isLogin) {
+      return '/biblioteca';
+    }
+    return null;
+  } catch (_) {
+    if (loc != '/login') {
+      return '/login';
+    }
+    return null;
+  }
+}
+
 final appRouterProvider = Provider<GoRouter>((ref) {
+  GoRouterRefreshStream? authRefresh;
+  late final Listenable refreshListenable;
+
+  if (AppConfig.skipFirebase) {
+    refreshListenable = ValueNotifier<int>(0);
+  } else {
+    authRefresh = GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges());
+    refreshListenable = authRefresh;
+  }
+
+  ref.onDispose(() {
+    authRefresh?.dispose();
+  });
+
+  final skipWithDev =
+      AppConfig.skipFirebase && AppConfig.devBearerPayload != null;
+
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/login',
+    initialLocation: skipWithDev ? '/biblioteca' : '/login',
+    refreshListenable: refreshListenable,
+    redirect: (context, state) => _authRedirect(state),
     routes: [
       GoRoute(
         path: '/login',

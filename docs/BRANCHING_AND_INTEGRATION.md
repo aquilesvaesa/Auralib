@@ -88,6 +88,14 @@ Redirecciones por compatibilidad: `/library` → `/biblioteca`; rutas antiguas `
 4. En paralelo, listar **pantallas DacToDock/DacToDockWeb** vs rutas `app_router.dart` actuales
    para ver huecos.
 
+## 7. Ramas por fase (integración)
+
+| Rama | Contenido |
+|------|------------|
+| `feature/phase-0-firebase-router` | Firebase init, guard `go_router`, `ApiError` + Dio, modo `SKIP_FIREBASE` / bearer dev. |
+| `feature/phase-1-auth` | Login/registro/logout reales (siguiente). |
+| … | Fases 2+ según plan de integración. |
+
 ---
 
 Este documento es vivo: actualizar el orden si el backend bloquea o desbloquea un bloque.

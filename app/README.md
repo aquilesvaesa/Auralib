@@ -36,8 +36,9 @@ manifest, etc.).
    dart pub global activate flutterfire_cli
    flutterfire configure --project=<ID-DE-TU-PROYECTO-FIREBASE>
    ```
-   Esto genera `lib/firebase_options.dart` y `android/app/google-services.json`
-   (este último ya está en `.gitignore`).
+   Esto **sobrescribe** `lib/firebase_options.dart` y genera `android/app/google-services.json`
+   (este último ya está en `.gitignore`). Hasta entonces el repo incluye un `firebase_options.dart`
+   placeholder: en debug, si la init falla, revisa la consola o usa el modo `SKIP_FIREBASE` abajo.
 
 5. **Generar ícono y splash** (cuando agregues los PNG en `assets/icons/`):
    ```bash
@@ -49,6 +50,19 @@ manifest, etc.).
 
 - **Emulador**: `flutter run`
 - **Dispositivo físico**: `flutter run --dart-define=API_BASE_URL=http://192.168.1.X:3100`
+
+### Sin Firebase aún (solo debug, API con token dev del Nest)
+
+Si el backend está en marcha y acepta `Bearer dev:<uid>:<email>`:
+
+```bash
+flutter run --dart-define=SKIP_FIREBASE=true \
+  --dart-define=DEV_AUTH_UID=testuid \
+  --dart-define=DEV_AUTH_EMAIL=dev@example.com \
+  --dart-define=API_BASE_URL=http://192.168.1.X:3100
+```
+
+La app entra directo al shell (Biblioteca) y `dio` envía el bearer dev. Ver `docs/BACKEND_API.md` en el monorepo.
 
 ## Estructura
 
