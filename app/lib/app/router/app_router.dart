@@ -11,6 +11,7 @@ import '../../features/discover/presentation/pages/descubre_page.dart';
 import '../../features/library/presentation/pages/library_page.dart';
 import '../../features/player/presentation/pages/player_page.dart';
 import '../../features/settings/presentation/settings_page.dart';
+import '../../features/sources/presentation/pages/qobuz_sources_page.dart';
 import '../shell/app_shell.dart';
 import 'go_router_refresh.dart';
 
@@ -141,6 +142,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: 'player',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (_, __) => const PlayerPage(),
+      ),
+      GoRoute(
+        path: '/sources/qobuz',
+        name: 'sourcesQobuz',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, __) => const QobuzSourcesPage(),
       ),
     ],
   );

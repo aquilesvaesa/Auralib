@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_config.dart';
 import '../../auth/application/auth_providers.dart';
@@ -41,7 +42,7 @@ class SettingsPage extends ConsumerWidget {
             leading: const Icon(Icons.cloud_outlined),
             title: const Text('Fuentes (Qobuz)'),
             subtitle: const Text('Conectar / desconectar / sincronizar'),
-            onTap: () {},
+            onTap: () => context.push('/sources/qobuz'),
           ),
           ListTile(
             leading: const Icon(Icons.library_music_outlined),
