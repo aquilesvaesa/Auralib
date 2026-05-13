@@ -2,6 +2,8 @@
 
 Cliente Android (v1) de AuraLib.
 
+**Ejecución completa (API + app, despliegue, pruebas):** ver en el monorepo [`docs/RUN_TEST_DEPLOY.md`](../docs/RUN_TEST_DEPLOY.md).
+
 ## Estado del esqueleto
 
 Este directorio contiene la **estructura base** del proyecto: `lib/`, `pubspec.yaml`,

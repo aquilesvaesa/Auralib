@@ -1,6 +1,10 @@
 # AuraLib API
 
-Backend NestJS para AuraLib. Provee:
+Backend NestJS para AuraLib.
+
+**Cómo ejecutar y probar junto al cliente Flutter, y opciones de hosting en producción:** [`../docs/RUN_TEST_DEPLOY.md`](../docs/RUN_TEST_DEPLOY.md).
+
+Provee:
 
 - Autenticación de usuarios (verificación de Firebase ID Tokens).
 - Conexión y gestión de cuentas Qobuz (incluye extractor del secret vía Puppeteer).

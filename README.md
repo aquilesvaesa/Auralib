@@ -27,6 +27,8 @@ Auralib/
 
 ## Quick start
 
+Guía detallada (pruebas, emulador vs físico, hosting del API): **[`docs/RUN_TEST_DEPLOY.md`](docs/RUN_TEST_DEPLOY.md)**.
+
 ### Backend (api/)
 
 ```bash
@@ -59,6 +61,7 @@ flutter run                # con un emulador o dispositivo conectado
 
 ## Documentación
 
+- **[Ejecución, pruebas y despliegue (`docs/RUN_TEST_DEPLOY.md`)](docs/RUN_TEST_DEPLOY.md)** — orden para levantar API + app, `API_BASE_URL`, smoke tests y **dónde alojar el API** en producción.
 - [Guía de producto v1 (`docs/PRODUCT_GUIDE.md`)](docs/PRODUCT_GUIDE.md)
 - [Arquitectura técnica (`docs/ARCHITECTURE.md`)](docs/ARCHITECTURE.md)
 - [Contrato del backend (`docs/BACKEND_API.md`)](docs/BACKEND_API.md)

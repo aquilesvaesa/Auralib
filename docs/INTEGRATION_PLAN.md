@@ -4,6 +4,8 @@ Este documento amplía el orden de integración del cliente Flutter con el backe
 ([`BACKEND_API.md`](BACKEND_API.md)) y define **qué validar en pantalla** (teléfono y tablet)
 **antes de dar por cerrada cada fase** y pasar a la siguiente.
 
+**Orden de ejecución del monorepo, pruebas smoke y hosting del API:** [`RUN_TEST_DEPLOY.md`](RUN_TEST_DEPLOY.md).
+
 Convención: repetir las pruebas en **móvil** (p. ej. S25) y en **tablet** (p. ej. SM X820),
 salvo que la fila indique solo uno.
 
