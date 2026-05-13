@@ -14,8 +14,10 @@ Future<void> main() async {
   if (!AppConfig.skipFirebase) {
     if (DefaultFirebaseOptions.isPlaceholderClient) {
       debugPrint(
-        'AuraLib: firebase_options.dart es la plantilla del repo; no se inicializa Firebase. '
-        'Configura con flutterfire configure y google-services.json, o usa SKIP_FIREBASE.',
+        'AuraLib: CONFIGURE_ME — lib/firebase_options.dart es la plantilla (apiKey sin proyecto real). '
+        'No se llama a Firebase.initializeApp. Desde la carpeta app/ ejecuta: '
+        'dart run tool/sync_firebase_options.dart  (requiere android/app/google-services.json) '
+        'o ./setup_local.sh  |  O usa SKIP_FIREBASE para solo API dev.',
       );
     } else {
       try {

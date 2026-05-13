@@ -34,10 +34,11 @@ manifest, etc.).
 4. **Configurar Firebase** (cuando armes el proyecto Firebase):
 
    **Opción A — sin Firebase CLI:** coloca `android/app/google-services.json` (descarga de la consola)
-   y genera las opciones de Dart:
+   y genera las opciones de Dart (tras cada `git pull` que toque `firebase_options.dart`):
    ```bash
    cd /Users/alvaroarias/AlvaroDev/Auralib/app
-   dart run tool/sync_firebase_options.dart
+   ./setup_local.sh
+   # o: dart run tool/sync_firebase_options.dart
    ```
    Eso **sobrescribe** `lib/firebase_options.dart` leyendo el JSON (paquete `com.auralib.auralib`).
 

@@ -19,6 +19,18 @@ salvo que la fila indique solo uno.
 
 En resumen: **Firebase = login y quién eres**; **Nest = qué música tienes y cómo hablar con Qobuz/DAC**.
 
+### Trabajo local tras `git pull` (obligatorio si usas Auth real)
+
+En el repo, `lib/firebase_options.dart` es **plantilla** (`CONFIGURE_ME`) por seguridad. En tu máquina debes regenerar las opciones reales **cada vez que un pull pise ese archivo**:
+
+```bash
+cd app
+./setup_local.sh
+# o: dart run tool/sync_firebase_options.dart
+```
+
+Requisito: `android/app/google-services.json` (descarga de Firebase Console). Si no lo haces, verás la pantalla **«Firebase: plantilla CONFIGURE_ME»** y en consola un `debugPrint` que contiene **`CONFIGURE_ME`**.
+
 ---
 
 ## Regla general antes de cerrar cualquier fase

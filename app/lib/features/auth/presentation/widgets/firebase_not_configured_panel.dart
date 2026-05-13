@@ -17,6 +17,14 @@ class FirebaseNotConfiguredPanel extends StatelessWidget {
           'Firebase no está configurado en este build',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
+        const SizedBox(height: 8),
+        SelectableText(
+          'Detectado: apiKey = CONFIGURE_ME (plantilla del repo)',
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                fontFamily: 'monospace',
+                color: cs.tertiary,
+              ),
+        ),
         const SizedBox(height: 12),
         Text(
           'El error «API key not valid» al crear cuenta aparece porque este proyecto '
@@ -58,7 +66,7 @@ class FirebaseNotConfiguredPanel extends StatelessWidget {
         const _Step(
           n: 1,
           text: 'Si ya tienes `android/app/google-services.json`, en `app/` ejecuta (sin Firebase CLI):',
-          code: 'dart run tool/sync_firebase_options.dart',
+          code: './setup_local.sh\n# o:\ndart run tool/sync_firebase_options.dart',
         ),
         const _Step(
           n: 2,

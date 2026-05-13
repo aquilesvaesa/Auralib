@@ -100,7 +100,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
     if (DefaultFirebaseOptions.isPlaceholderClient) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Crear cuenta'),
+          title: const Text('Firebase: plantilla CONFIGURE_ME'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {

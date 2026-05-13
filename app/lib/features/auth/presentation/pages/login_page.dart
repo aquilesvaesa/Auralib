@@ -85,8 +85,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     }
 
     if (DefaultFirebaseOptions.isPlaceholderClient) {
-      return const Scaffold(
-        body: SafeArea(
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Firebase: plantilla CONFIGURE_ME'),
+          automaticallyImplyLeading: false,
+        ),
+        body: const SafeArea(
           child: FirebaseNotConfiguredPanel(),
         ),
       );
