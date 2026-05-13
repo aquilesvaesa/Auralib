@@ -32,13 +32,24 @@ manifest, etc.).
    ```
 
 4. **Configurar Firebase** (cuando armes el proyecto Firebase):
+
+   **Opción A — sin Firebase CLI:** coloca `android/app/google-services.json` (descarga de la consola)
+   y genera las opciones de Dart:
+   ```bash
+   cd /Users/alvaroarias/AlvaroDev/Auralib/app
+   dart run tool/sync_firebase_options.dart
+   ```
+   Eso **sobrescribe** `lib/firebase_options.dart` leyendo el JSON (paquete `com.auralib.auralib`).
+
+   **Opción B — FlutterFire** (requiere [Firebase CLI](https://firebase.google.com/docs/cli) instalado y `firebase login`):
    ```bash
    dart pub global activate flutterfire_cli
+   export PATH="$PATH:$HOME/.pub-cache/bin"
    flutterfire configure --project=<ID-DE-TU-PROYECTO-FIREBASE>
    ```
-   Esto **sobrescribe** `lib/firebase_options.dart` y genera `android/app/google-services.json`
-   (este último ya está en `.gitignore`). Hasta entonces el repo incluye un `firebase_options.dart`
-   placeholder: en debug, si la init falla, revisa la consola o usa el modo `SKIP_FIREBASE` abajo.
+
+   `google-services.json` suele estar en `.gitignore`. Mientras `firebase_options.dart` sea plantilla,
+   la app muestra la pantalla de ayuda; usa `SKIP_FIREBASE` abajo solo para depurar el API.
 
 5. **Generar ícono y splash** (cuando agregues los PNG en `assets/icons/`):
    ```bash

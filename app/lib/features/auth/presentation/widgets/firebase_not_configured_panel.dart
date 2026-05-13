@@ -57,20 +57,25 @@ class FirebaseNotConfiguredPanel extends StatelessWidget {
         const SizedBox(height: 8),
         const _Step(
           n: 1,
-          text: 'En la carpeta `app/` ejecuta (sobrescribe `lib/firebase_options.dart`):',
+          text: 'Si ya tienes `android/app/google-services.json`, en `app/` ejecuta (sin Firebase CLI):',
+          code: 'dart run tool/sync_firebase_options.dart',
+        ),
+        const _Step(
+          n: 2,
+          text: 'O con FlutterFire (requiere `firebase` CLI + login):',
           code:
               'dart pub global activate flutterfire_cli\nflutterfire configure --project=<TU_PROYECTO>',
         ),
         const _Step(
-          n: 2,
+          n: 3,
           text: 'Confirma `android/app/google-services.json` (descarga de la consola o lo completa flutterfire).',
         ),
         const _Step(
-          n: 3,
+          n: 4,
           text: 'En Firebase → app Android `com.auralib.auralib` → huellas SHA-1 y SHA-256 del keystore debug.',
         ),
         const _Step(
-          n: 4,
+          n: 5,
           text: 'El backend Nest debe usar el mismo proyecto Firebase (credencial de servicio / ADC).',
         ),
         const SizedBox(height: 20),
