@@ -1,13 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/app_config.dart';
+import '../../auth/application/auth_providers.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(firebaseAuthStateProvider);
+    final firebaseUser = AppConfig.skipFirebase ? null : FirebaseAuth.instance.currentUser;
+    final accountSubtitle = AppConfig.skipFirebase
+        ? (AppConfig.devBearerPayload != null
+            ? 'Dev: ${AppConfig.devAuthEmail}'
+            : 'Activa SKIP_FIREBASE con DEV_AUTH_UID y DEV_AUTH_EMAIL para el API')
+        : (firebaseUser?.email ?? firebaseUser?.uid ?? 'Sin sesión');
+
     return Scaffold(
       appBar: AppBar(title: const Text('Ajustes')),
       body: ListView(
@@ -16,9 +26,17 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.account_circle_outlined),
             title: const Text('Cuenta'),
-            subtitle: const Text('Gestionar perfil y sesión'),
+            subtitle: Text(accountSubtitle),
             onTap: () {},
           ),
+          if (!AppConfig.skipFirebase && firebaseUser != null)
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Cerrar sesión'),
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+              },
+            ),
           ListTile(
             leading: const Icon(Icons.cloud_outlined),
             title: const Text('Fuentes (Qobuz)'),

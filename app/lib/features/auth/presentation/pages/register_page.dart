@@ -9,23 +9,25 @@ import '../../../../core/errors/api_error.dart';
 import '../../application/auth_providers.dart';
 import '../auth_messages.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends ConsumerStatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  ConsumerState<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage> {
+class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _password = TextEditingController();
+  final _password2 = TextEditingController();
   bool _loading = false;
 
   @override
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _password2.dispose();
     super.dispose();
   }
 
@@ -34,7 +36,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     FocusScope.of(context).unfocus();
     setState(() => _loading = true);
     try {
-      final cred = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _email.text.trim(),
         password: _password.text,
       );
@@ -53,7 +55,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           SnackBar(
             content: Text(
               api?.message ??
-                  'No se pudo validar la sesión con el servidor. Comprueba la URL del API.',
+                  'Cuenta creada pero el servidor no validó el token. Revisa el API.',
             ),
           ),
         );
@@ -68,13 +70,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     if (AppConfig.skipFirebase) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Login')),
+        appBar: AppBar(
+          title: const Text('Crear cuenta'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/login');
+              }
+            },
+          ),
+        ),
         body: const Center(
           child: Padding(
             padding: EdgeInsets.all(24),
             child: Text(
-              'Estás en modo SKIP_FIREBASE.\n'
-              'Usa --dart-define=DEV_AUTH_UID=... y DEV_AUTH_EMAIL=... para entrar al shell.',
+              'El registro no está disponible con SKIP_FIREBASE.',
               textAlign: TextAlign.center,
             ),
           ),
@@ -84,6 +97,21 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Crear cuenta'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: _loading
+              ? null
+              : () {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.go('/login');
+                  }
+                },
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
@@ -93,26 +121,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               child: Form(
                 key: _formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: 24),
-                    Icon(Icons.library_music_rounded, size: 72, color: cs.primary),
-                    const SizedBox(height: 16),
                     Text(
-                      'AuraLib',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      'Registro con email',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Tu biblioteca musical, sonando donde quieras.',
-                      textAlign: TextAlign.center,
+                      'Usa el mismo proyecto Firebase que el backend.',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: cs.onSurfaceVariant,
                           ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 24),
                     TextFormField(
                       controller: _email,
                       decoration: const InputDecoration(labelText: 'Email'),
@@ -132,11 +154,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       controller: _password,
                       decoration: const InputDecoration(labelText: 'Contraseña'),
                       obscureText: true,
-                      autofillHints: const [AutofillHints.password],
+                      autofillHints: const [AutofillHints.newPassword],
+                      enabled: !_loading,
+                      validator: (v) {
+                        if (v == null || v.isEmpty) return 'Introduce una contraseña';
+                        if (v.length < 6) return 'Mínimo 6 caracteres';
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _password2,
+                      decoration: const InputDecoration(labelText: 'Repetir contraseña'),
+                      obscureText: true,
+                      autofillHints: const [AutofillHints.newPassword],
                       enabled: !_loading,
                       onFieldSubmitted: (_) => _submit(),
                       validator: (v) {
-                        if (v == null || v.isEmpty) return 'Introduce la contraseña';
+                        if (v != _password.text) return 'Las contraseñas no coinciden';
                         return null;
                       },
                     ),
@@ -149,13 +184,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               width: 22,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : const Text('Entrar'),
+                          : const Text('Registrarse'),
                     ),
-                    TextButton(
-                      onPressed: _loading ? null : () => context.push('/register'),
-                      child: const Text('Crear cuenta'),
-                    ),
-                    const SizedBox(height: 24),
                   ],
                 ),
               ),

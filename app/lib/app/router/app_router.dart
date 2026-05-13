@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/config/app_config.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/discover/presentation/pages/descubre_page.dart';
 import '../../features/library/presentation/pages/library_page.dart';
 import '../../features/player/presentation/pages/player_page.dart';
@@ -18,6 +19,9 @@ String? _authRedirect(GoRouterState state) {
   final loc = state.matchedLocation;
   try {
     if (AppConfig.skipFirebase) {
+      if (loc == '/register') {
+        return '/login';
+      }
       final hasDev = AppConfig.devBearerPayload != null;
       if (!hasDev && loc != '/login') {
         return '/login';
@@ -28,11 +32,11 @@ String? _authRedirect(GoRouterState state) {
       return null;
     }
     final user = FirebaseAuth.instance.currentUser;
-    final isLogin = loc == '/login';
-    if (user == null && !isLogin) {
+    final isAuthRoute = loc == '/login' || loc == '/register';
+    if (user == null && !isAuthRoute) {
       return '/login';
     }
-    if (user != null && isLogin) {
+    if (user != null && isAuthRoute) {
       return '/biblioteca';
     }
     return null;
@@ -72,6 +76,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/login',
         name: 'login',
         builder: (_, __) => const LoginPage(),
+      ),
+      GoRoute(
+        path: '/register',
+        name: 'register',
+        builder: (_, __) => const RegisterPage(),
       ),
       GoRoute(
         path: '/library',
