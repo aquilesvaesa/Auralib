@@ -1,5 +1,7 @@
 # Plan de ramas e integración desde apps heredadas
 
+> **Plan de fases, orden de integración y pruebas visuales por fase:** [`INTEGRATION_PLAN.md`](INTEGRATION_PLAN.md).
+
 Referencia para no perder la **interfaz ya validada** en `DacToDock` (Android nativo) y
 `DacToDockWeb` (Angular), mientras se portan capacidades a AuraLib (Flutter).
 
@@ -90,11 +92,20 @@ Redirecciones por compatibilidad: `/library` → `/biblioteca`; rutas antiguas `
 
 ## 7. Ramas por fase (integración)
 
+Detalle técnico, rol de **Firebase vs backend** y **checklist visual obligatorio** antes de pasar de fase: [`INTEGRATION_PLAN.md`](INTEGRATION_PLAN.md).
+
 | Rama | Contenido |
 |------|------------|
 | `feature/phase-0-firebase-router` | Firebase init, guard `go_router`, `ApiError` + Dio, modo `SKIP_FIREBASE` / bearer dev. |
-| `feature/phase-1-auth` | Login/registro/logout reales (siguiente). |
-| … | Fases 2+ según plan de integración. |
+| `feature/phase-1-auth` | Login / registro / logout + `GET /auth/me`. |
+| `feature/phase-2-sources-qobuz` | Fuentes Qobuz (connect / verify / disconnect). |
+| `feature/phase-3-library-unified` | Biblioteca `GET /library/unified` + filtros / búsqueda. |
+| `feature/phase-4-library-sync-detail` | Sync jobs + detalle álbum. |
+| `feature/phase-5-discover-discography` | Descubre + discografía enriquecida. |
+| `feature/phase-6-player-local-qobuz` | `track-url` + `just_audio` + mini/full player. |
+| `feature/phase-7-upnp-dlna` | SSDP / DLNA / renderer. |
+| `feature/phase-8-settings-health` | Last.fm, proveedores, health, about. |
+| `feature/phase-9-polish-v1` | Splash, ícono, pulido v1. |
 
 ---
 
