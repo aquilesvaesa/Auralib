@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/config/app_config.dart';
 import '../features/auth/application/auth_providers.dart';
+import '../firebase_options.dart';
 import '../shared/theme/app_theme.dart';
 import 'router/app_router.dart';
 
@@ -17,7 +18,7 @@ class AuraLibApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(firebaseAuthStateProvider, (previous, next) {
       next.whenData((user) {
-        if (user == null || AppConfig.skipFirebase) return;
+        if (user == null || AppConfig.skipFirebase || DefaultFirebaseOptions.isPlaceholderClient) return;
         unawaited(_validateSessionWithBackend(ref));
       });
     });

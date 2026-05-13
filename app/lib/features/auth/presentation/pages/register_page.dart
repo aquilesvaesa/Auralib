@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/config/app_config.dart';
 import '../../../../core/errors/api_error.dart';
+import '../../../../firebase_options.dart';
 import '../../application/auth_providers.dart';
 import '../auth_messages.dart';
+import '../widgets/firebase_not_configured_panel.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -91,6 +93,27 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
               textAlign: TextAlign.center,
             ),
           ),
+        ),
+      );
+    }
+
+    if (DefaultFirebaseOptions.isPlaceholderClient) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Crear cuenta'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/login');
+              }
+            },
+          ),
+        ),
+        body: const SafeArea(
+          child: FirebaseNotConfiguredPanel(),
         ),
       );
     }

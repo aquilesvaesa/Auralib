@@ -8,6 +8,13 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 class DefaultFirebaseOptions {
+  /// `true` mientras el repo tenga la plantilla; sustituye con `flutterfire configure`.
+  static bool get isPlaceholderClient {
+    return android.apiKey == 'CONFIGURE_ME' ||
+        android.projectId == 'auralib-configure-firebase' ||
+        android.messagingSenderId == '000000000000';
+  }
+
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       throw UnsupportedError('Firebase Web no está configurado para AuraLib v1.');

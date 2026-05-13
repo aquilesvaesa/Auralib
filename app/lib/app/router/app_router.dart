@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/config/app_config.dart';
+import '../../firebase_options.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/discover/presentation/pages/descubre_page.dart';
@@ -31,6 +32,13 @@ String? _authRedirect(GoRouterState state) {
       }
       return null;
     }
+    if (DefaultFirebaseOptions.isPlaceholderClient) {
+      final isAuthRoute = loc == '/login' || loc == '/register';
+      if (!isAuthRoute) {
+        return '/login';
+      }
+      return null;
+    }
     final user = FirebaseAuth.instance.currentUser;
     final isAuthRoute = loc == '/login' || loc == '/register';
     if (user == null && !isAuthRoute) {
@@ -52,7 +60,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   GoRouterRefreshStream? authRefresh;
   late final Listenable refreshListenable;
 
-  if (AppConfig.skipFirebase) {
+  if (AppConfig.skipFirebase || DefaultFirebaseOptions.isPlaceholderClient) {
     refreshListenable = ValueNotifier<int>(0);
   } else {
     authRefresh = GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges());

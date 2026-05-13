@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/config/app_config.dart';
 import '../../../../core/errors/api_error.dart';
+import '../../../../firebase_options.dart';
 import '../../application/auth_providers.dart';
 import '../auth_messages.dart';
+import '../widgets/firebase_not_configured_panel.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -78,6 +80,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               textAlign: TextAlign.center,
             ),
           ),
+        ),
+      );
+    }
+
+    if (DefaultFirebaseOptions.isPlaceholderClient) {
+      return const Scaffold(
+        body: SafeArea(
+          child: FirebaseNotConfiguredPanel(),
         ),
       );
     }

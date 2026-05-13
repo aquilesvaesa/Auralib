@@ -12,16 +12,23 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (!AppConfig.skipFirebase) {
-    try {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
+    if (DefaultFirebaseOptions.isPlaceholderClient) {
+      debugPrint(
+        'AuraLib: firebase_options.dart es la plantilla del repo; no se inicializa Firebase. '
+        'Configura con flutterfire configure y google-services.json, o usa SKIP_FIREBASE.',
       );
-    } catch (e, st) {
-      debugPrint('Firebase.initializeApp falló: $e\n$st\n'
-          'Ejecuta en app/: dart pub global activate flutterfire_cli && flutterfire configure\n'
-          'O usa --dart-define=SKIP_FIREBASE=true con DEV_AUTH_UID y DEV_AUTH_EMAIL para API dev.');
-      if (kReleaseMode) {
-        rethrow;
+    } else {
+      try {
+        await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        );
+      } catch (e, st) {
+        debugPrint('Firebase.initializeApp falló: $e\n$st\n'
+            'Ejecuta en app/: dart pub global activate flutterfire_cli && flutterfire configure\n'
+            'O usa --dart-define=SKIP_FIREBASE=true con DEV_AUTH_UID y DEV_AUTH_EMAIL para API dev.');
+        if (kReleaseMode) {
+          rethrow;
+        }
       }
     }
   }
