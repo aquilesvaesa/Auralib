@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/config/app_config.dart';
 import '../../../../core/errors/api_error.dart';
 import '../../application/sources_providers.dart';
 import '../../domain/source_account_view.dart';
@@ -53,10 +54,12 @@ class _QobuzSourcesPageState extends ConsumerState<QobuzSourcesPage> {
       }
       await _reload();
     } on DioException catch (e) {
-      final api = ApiError.tryParseDio(e) ?? ApiError.fromDio(e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(api.message)),
+          SnackBar(
+            content: Text(ApiError.userFacingDioMessage(e)),
+            duration: const Duration(seconds: 8),
+          ),
         );
       }
     } finally {
@@ -75,10 +78,12 @@ class _QobuzSourcesPageState extends ConsumerState<QobuzSourcesPage> {
       }
       await _reload();
     } on DioException catch (e) {
-      final api = ApiError.tryParseDio(e) ?? ApiError.fromDio(e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(api.message)),
+          SnackBar(
+            content: Text(ApiError.userFacingDioMessage(e)),
+            duration: const Duration(seconds: 8),
+          ),
         );
       }
     } finally {
@@ -97,10 +102,12 @@ class _QobuzSourcesPageState extends ConsumerState<QobuzSourcesPage> {
       }
       await _reload();
     } on DioException catch (e) {
-      final api = ApiError.tryParseDio(e) ?? ApiError.fromDio(e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(api.message)),
+          SnackBar(
+            content: Text(ApiError.userFacingDioMessage(e)),
+            duration: const Duration(seconds: 8),
+          ),
         );
       }
     } finally {
@@ -123,19 +130,32 @@ class _QobuzSourcesPageState extends ConsumerState<QobuzSourcesPage> {
       ),
       body: async.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('No se pudo cargar las fuentes: $e', textAlign: TextAlign.center),
-                const SizedBox(height: 16),
-                FilledButton(onPressed: _reload, child: const Text('Reintentar')),
-              ],
+        error: (e, _) {
+          final msg = e is DioException
+              ? ApiError.userFacingDioMessage(e)
+              : 'No se pudo cargar las fuentes: $e';
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  SelectableText(msg, style: Theme.of(context).textTheme.bodyMedium),
+                  const SizedBox(height: 12),
+                  SelectableText(
+                    'URL actual del API: ${AppConfig.apiBaseUrl}',
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontFamily: 'monospace',
+                          color: cs.onSurfaceVariant,
+                        ),
+                  ),
+                  const SizedBox(height: 20),
+                  FilledButton(onPressed: _reload, child: const Text('Reintentar')),
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
         data: (list) {
           final q = _qobuz(list);
           return RefreshIndicator(
@@ -143,6 +163,14 @@ class _QobuzSourcesPageState extends ConsumerState<QobuzSourcesPage> {
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: [
+                SelectableText(
+                  'API: ${AppConfig.apiBaseUrl}',
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        fontFamily: 'monospace',
+                        color: cs.outline,
+                      ),
+                ),
+                const SizedBox(height: 12),
                 Text(
                   'Conecta tu cuenta Qobuz con el email y contraseña de Qobuz '
                   '(no el inicio solo con Google/Microsoft salvo que tengas contraseña en qobuz.com).',

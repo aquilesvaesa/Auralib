@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import '../config/app_config.dart';
+
 /// Error JSON del backend: `{ "error": { "code", "message", "details?" } }`.
 class ApiError implements Exception {
   ApiError({
@@ -40,5 +42,33 @@ class ApiError implements Exception {
           message: e.message ?? 'Error de red',
           statusCode: e.response?.statusCode,
         );
+  }
+
+  /// Mensaje legible para UI (timeouts, sin conexión al API, etc.).
+  static String userFacingDioMessage(DioException e) {
+    final timedOut = e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.receiveTimeout ||
+        e.type == DioExceptionType.sendTimeout ||
+        e.type == DioExceptionType.connectionError ||
+        (e.type == DioExceptionType.unknown &&
+            (e.message?.toLowerCase().contains('timeout') ?? false));
+
+    if (timedOut) {
+      final base = AppConfig.apiBaseUrl;
+      final isEmulatorHost = base.contains('10.0.2.2');
+      final lines = <String>[
+        'No se alcanza el API en $base (tiempo de espera o sin conexión).',
+        'Comprueba que el backend Nest esté en marcha (puerto 3100) y la misma red Wi‑Fi.',
+      ];
+      if (isEmulatorHost) {
+        lines.add(
+          'La URL por defecto 10.0.2.2 solo funciona en el emulador Android. '
+          'En tablet o móvil físico usa la IP LAN de tu Mac, por ejemplo:\n'
+          'flutter run --dart-define=API_BASE_URL=http://192.168.1.5:3100',
+        );
+      }
+      return lines.join('\n\n');
+    }
+    return (tryParseDio(e) ?? fromDio(e)).message;
   }
 }
