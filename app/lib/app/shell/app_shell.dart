@@ -27,6 +27,18 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final maxIndex = _destinations.length - 1;
+    final rawIndex = navigationShell.currentIndex;
+    final safeIndex = rawIndex.clamp(0, maxIndex);
+    if (safeIndex != rawIndex) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!context.mounted) return;
+        if (navigationShell.currentIndex == rawIndex) {
+          navigationShell.goBranch(safeIndex);
+        }
+      });
+    }
+
     final width = MediaQuery.sizeOf(context).width;
     final useRail = width >= 600;
     final extendedRail = width >= 900;
@@ -44,7 +56,7 @@ class AppShell extends StatelessWidget {
           children: [
             NavigationRail(
               extended: extendedRail,
-              selectedIndex: navigationShell.currentIndex,
+              selectedIndex: safeIndex,
               onDestinationSelected: goBranch,
               labelType: extendedRail
                   ? NavigationRailLabelType.all
@@ -68,7 +80,7 @@ class AppShell extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
+        selectedIndex: safeIndex,
         onDestinationSelected: goBranch,
         destinations: [
           for (final d in _destinations)
