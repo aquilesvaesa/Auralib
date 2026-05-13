@@ -1,0 +1,4 @@
+{
+  "dart.flutterSdkPath": "${env:HOME}/Alvarodev/flutter",
+  "dart.lineLength": 100
+}
