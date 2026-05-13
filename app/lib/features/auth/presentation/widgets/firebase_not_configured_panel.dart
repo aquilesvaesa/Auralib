@@ -20,26 +20,54 @@ class FirebaseNotConfiguredPanel extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           'El error «API key not valid» al crear cuenta aparece porque este proyecto '
-          'sigue usando la plantilla de `firebase_options.dart` (sin claves reales) y '
-          'normalmente falta `android/app/google-services.json`.',
+          'sigue usando la plantilla de `lib/firebase_options.dart` (sin claves reales). '
+          'Ese archivo lo usa Flutter en tiempo de ejecución; no basta con tener solo `google-services.json`.',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
         ),
+        const SizedBox(height: 16),
+        Card(
+          color: cs.errorContainer.withValues(alpha: 0.35),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '¿Ya guardaste SHA en Firebase y el JSON en android/app/?',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: cs.onErrorContainer,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Eso no actualiza solo `firebase_options.dart`. Mientras ese archivo siga con '
+                  '`CONFIGURE_ME`, verás esta pantalla. El paso que te falta es ejecutar '
+                  '`flutterfire configure` en la carpeta `app/` y volver a compilar.',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: cs.onErrorContainer,
+                      ),
+                ),
+              ],
+            ),
+          ),
+        ),
         const SizedBox(height: 24),
-        Text('Qué hacer', style: Theme.of(context).textTheme.titleMedium),
+        Text('Qué hacer (orden recomendado)', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         const _Step(
           n: 1,
-          text: 'En la carpeta `app/` ejecuta:',
+          text: 'En la carpeta `app/` ejecuta (sobrescribe `lib/firebase_options.dart`):',
           code:
               'dart pub global activate flutterfire_cli\nflutterfire configure --project=<TU_PROYECTO>',
         ),
         const _Step(
           n: 2,
-          text: 'Confirma que existe `android/app/google-services.json` (descarga de la consola o lo genera flutterfire).',
+          text: 'Confirma `android/app/google-services.json` (descarga de la consola o lo completa flutterfire).',
         ),
         const _Step(
           n: 3,
-          text: 'En Firebase → tu app Android `com.auralib.auralib` → añade la huella SHA-1 (y SHA-256) del keystore debug.',
+          text: 'En Firebase → app Android `com.auralib.auralib` → huellas SHA-1 y SHA-256 del keystore debug.',
         ),
         const _Step(
           n: 4,

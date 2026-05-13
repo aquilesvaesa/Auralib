@@ -4,6 +4,8 @@
 //   dart pub global activate flutterfire_cli
 //   flutterfire configure --project=<tu-proyecto-firebase>
 //
+// Aunque tengas `android/app/google-services.json` y SHA en la consola, mientras aquí
+// siga la plantilla (CONFIGURE_ME), la app mostrará la pantalla de ayuda y no usará Auth real.
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
