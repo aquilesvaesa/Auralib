@@ -1,16 +1,10 @@
-// ignore_for_file: lines_longer_than_80_chars
+// GENERADO POR tool/sync_firebase_options.dart — no editar a mano.
+// Regenerar: (desde app/) dart run tool/sync_firebase_options.dart
 //
-// Reemplaza este archivo ejecutando en `app/`:
-//   dart pub global activate flutterfire_cli
-//   flutterfire configure --project=<tu-proyecto-firebase>
-//
-// Aunque tengas `android/app/google-services.json` y SHA en la consola, mientras aquí
-// siga la plantilla (CONFIGURE_ME), la app mostrará la pantalla de ayuda y no usará Auth real.
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 class DefaultFirebaseOptions {
-  /// `true` mientras el repo tenga la plantilla; sustituye con `flutterfire configure`.
   static bool get isPlaceholderClient {
     return android.apiKey == 'CONFIGURE_ME' ||
         android.projectId == 'auralib-configure-firebase' ||
@@ -32,10 +26,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'CONFIGURE_ME',
-    appId: '1:000000000000:android:0000000000000000000000',
-    messagingSenderId: '000000000000',
-    projectId: 'auralib-configure-firebase',
-    storageBucket: 'auralib-configure-firebase.appspot.com',
+    apiKey: "AIzaSyCfEt-0EXR1-i9JNvU9xXIKqcGfSrrLMn0",
+    appId: "1:740634901626:android:132c77e436b40a7fffcfc3",
+    messagingSenderId: "740634901626",
+    projectId: "auralib",
+    storageBucket: "auralib.firebasestorage.app",
   );
 }

@@ -42,3 +42,16 @@ android {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // BoM alinea versiones nativas de Firebase (consola Firebase, Kotlin DSL).
+    implementation(platform("com.google.firebase:firebase-bom:34.13.0"))
+    implementation("com.google.firebase:firebase-analytics")
+}
+
+// `google-services.json` no va al repo (.gitignore). Sin él, el plugin rompe el build;
+// si existe (flutterfire configure o descarga manual desde la consola), se aplica.
+val googleServicesJson = file("google-services.json")
+if (googleServicesJson.exists()) {
+    apply(plugin = "com.google.gms.google-services")
+}
