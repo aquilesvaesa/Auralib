@@ -51,6 +51,12 @@ manifest, etc.).
    `google-services.json` suele estar en `.gitignore`. Mientras `firebase_options.dart` sea plantilla,
    la app muestra la pantalla de ayuda; usa `SKIP_FIREBASE` abajo solo para depurar el API.
 
+   **Seguridad:** el `firebase_options.dart` **versionado** debe quedarse como **plantilla** (`CONFIGURE_ME`).
+   Tras `sync_firebase_options` o `flutterfire configure`, **no hagas commit** del archivo si ya contiene
+   tu `apiKey` real. Si alguna vez subiste claves, **rota o restringe** la clave en
+   [Google Cloud Console → Credenciales](https://console.cloud.google.com/apis/credentials) del proyecto
+   vinculado a Firebase; limpiar el historial de git requiere herramientas tipo `git filter-repo` (avanzado).
+
 5. **Generar ícono y splash** (cuando agregues los PNG en `assets/icons/`):
    ```bash
    dart run flutter_native_splash:create

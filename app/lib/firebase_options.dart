@@ -1,10 +1,15 @@
-// GENERADO POR tool/sync_firebase_options.dart — no editar a mano.
-// Regenerar: (desde app/) dart run tool/sync_firebase_options.dart
+// ignore_for_file: lines_longer_than_80_chars
+//
+// Plantilla segura para el repositorio (sin claves reales).
+// Genera el archivo real en local, sin subirlo a git:
+//   dart run tool/sync_firebase_options.dart   (requiere android/app/google-services.json)
+// o: flutterfire configure --project=...
 //
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 class DefaultFirebaseOptions {
+  /// `true` mientras no hayas generado opciones reales (sync / flutterfire).
   static bool get isPlaceholderClient {
     return android.apiKey == 'CONFIGURE_ME' ||
         android.projectId == 'auralib-configure-firebase' ||
@@ -26,10 +31,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: "AIzaSyCfEt-0EXR1-i9JNvU9xXIKqcGfSrrLMn0",
-    appId: "1:740634901626:android:132c77e436b40a7fffcfc3",
-    messagingSenderId: "740634901626",
-    projectId: "auralib",
-    storageBucket: "auralib.firebasestorage.app",
+    apiKey: 'CONFIGURE_ME',
+    appId: '1:000000000000:android:0000000000000000000000',
+    messagingSenderId: '000000000000',
+    projectId: 'auralib-configure-firebase',
+    storageBucket: 'auralib-configure-firebase.appspot.com',
   );
 }

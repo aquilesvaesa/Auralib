@@ -124,6 +124,7 @@ String _dartFile({
 
   return '''
 // GENERADO POR tool/sync_firebase_options.dart — no editar a mano.
+// NO hagas commit de este contenido a repos públicos sin revisar (contiene API key).
 // Regenerar: (desde app/) dart run tool/sync_firebase_options.dart
 //
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;

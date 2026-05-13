@@ -27,5 +27,8 @@ android/app/debug/
 android/app/profile/
 android/app/google-services.json
 
-# Firebase (google-services local; firebase_options.dart sí va al repo como plantilla / valores de proyecto)
+# Firebase: google-services.json es local (ver arriba).
+# `lib/firebase_options.dart` en el repo debe ser solo la plantilla (sin claves).
+# Genera valores reales en tu máquina con `dart run tool/sync_firebase_options.dart` y no hagas
+# commit de ese archivo si contiene API keys reales (ver README sección Seguridad).
 .DS_Store
