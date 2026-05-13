@@ -58,9 +58,9 @@ class AppShell extends StatelessWidget {
               extended: extendedRail,
               selectedIndex: safeIndex,
               onDestinationSelected: goBranch,
-              labelType: extendedRail
-                  ? NavigationRailLabelType.all
-                  : NavigationRailLabelType.selected,
+              // Con `extended: true`, Flutter exige `labelType == null` o `none`
+              // (las etiquetas ya se muestran en modo extendido).
+              labelType: extendedRail ? null : NavigationRailLabelType.selected,
               destinations: [
                 for (final d in _destinations)
                   NavigationRailDestination(
