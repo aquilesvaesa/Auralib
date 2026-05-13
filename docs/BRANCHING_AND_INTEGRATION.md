@@ -64,18 +64,20 @@ si el contrato API está listo.
 No copiar código legacy a ciegas: **reimplementar en Flutter** usando la documentación viva
 en [`docs/PRODUCT_GUIDE.md`](PRODUCT_GUIDE.md) y [`docs/BACKEND_API.md`](BACKEND_API.md).
 
-## 5. Shell principal en Flutter (paridad DacToDock)
+## 5. Shell principal en Flutter (navegación actual)
 
-Rutas con barra inferior en móvil (`<600dp`) y **Navigation Rail** en tablet:
+Tres destinos: **Biblioteca**, **Descubre**, **Ajustes**. Barra inferior en móvil (`<600dp`)
+y **Navigation Rail** en tablet (`≥600dp`).
 
-| Ruta | Rol legacy |
-|------|------------|
-| `/monitor` | Monitor — resumen / estado |
-| `/inspector` | Inspector — exploración / discografía |
+| Ruta | Pestaña |
+|------|---------|
 | `/biblioteca` | Biblioteca |
+| `/descubre` | Descubre |
 | `/ajustes` | Ajustes |
 
 El reproductor a pantalla completa vive en `/player` (fuera del shell).
+
+Redirecciones por compatibilidad: `/library` → `/biblioteca`; rutas antiguas `/monitor`, `/inspector` → destinos actuales.
 
 ## 6. Próximos pasos inmediatos (esta semana)
 

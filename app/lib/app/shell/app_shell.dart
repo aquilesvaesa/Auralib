@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// Navegación principal alineada a DacToDock: 4 zonas + rail en tablet (≥600dp).
+/// Navegación principal: **Biblioteca**, **Descubre**, **Ajustes** (barra o rail ≥600dp).
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.navigationShell});
 
   final StatefulNavigationShell navigationShell;
 
   static const _destinations = <_NavDest>[
-    _NavDest(label: 'Monitor', icon: Icons.dashboard_outlined, selectedIcon: Icons.dashboard),
-    _NavDest(label: 'Inspector', icon: Icons.manage_search_outlined, selectedIcon: Icons.manage_search),
-    _NavDest(label: 'Biblioteca', icon: Icons.library_music_outlined, selectedIcon: Icons.library_music),
-    _NavDest(label: 'Ajustes', icon: Icons.settings_outlined, selectedIcon: Icons.settings),
+    _NavDest(
+      label: 'Biblioteca',
+      icon: Icons.library_music_outlined,
+      selectedIcon: Icons.library_music,
+    ),
+    _NavDest(
+      label: 'Descubre',
+      icon: Icons.explore_outlined,
+      selectedIcon: Icons.explore,
+    ),
+    _NavDest(
+      label: 'Ajustes',
+      icon: Icons.settings_outlined,
+      selectedIcon: Icons.settings,
+    ),
   ];
 
   @override
